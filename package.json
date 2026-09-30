@@ -1,0 +1,11 @@
+{
+  "name": "mfz-webflow-custom-code",
+  "private": true,
+  "description": "MFZ Webflow custom code (CSS, head snippets)",
+  "scripts": {
+    "build:css": "cleancss -O1 --format breakWith=lf -o css/mfz-head.min.css css/mfz-head.css"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3"
+  }
+}
