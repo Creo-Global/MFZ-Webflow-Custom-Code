@@ -1,0 +1,542 @@
+<html>
+    <head>
+        <title>MFZ Webflow Headcode Legacy</title>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+        <meta name="yandex-verification" content="eef37997c9615efc" />
+        <meta name="p:domain_verify" content="f84629f8e49a66a1afec36fedb506479"/>
+
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-MLN4TF2');</script>
+        <!-- End Google Tag Manager -->
+
+        <!-- Google tag (gtag.js) -->
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=DC-16399138"></script> -->
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'DC-16399138');
+        </script>
+        <!-- End of global snippet: Please do not remove -->
+
+        <!-- CRITICAL: Debounce utility - Load BEFORE other scripts -->
+        <script>
+        /**
+         * Debounce utility to limit function calls
+         * Must be defined early as it's used by multiple systems
+         */
+        window.debounce = (func, wait = 100) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+            clearTimeout(timeout);
+            func.apply(this, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+        };
+        </script>
+
+        <!-- MouseFlow scripts -->
+        <script>
+        var loadMF = function () {
+            var mf = document.createElement("script");
+            mf.type = "text/javascript";
+            mf.defer = true;
+            mf.src = "//cdn.mouseflow.com/projects/b53d0057-3d51-4d56-8bdd-08f6edd4d9ca.js";
+            document.getElementsByTagName("head")[0].appendChild(mf);
+        };
+        'requestIdleCallback' in window
+            ? requestIdleCallback(loadMF, { timeout: 5000 })
+            : window.addEventListener('load', function () { setTimeout(loadMF, 1000); });
+        </script>
+
+        <!-- intl-tel-input CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.3.1/build/css/intlTelInput.min.css">
+
+        <!-- MFZ Phone and Email CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Creo-Global/mfz-phone-validation@6006131/mfz-phone.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Creo-Global/mfz-phone-validation@588face/mfz-email.min.css">
+
+        <!-- Custom Style -->
+        <style>
+        /* Color gradients */
+        html,body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-synthesis: none;
+        -webkit-text-size-adjust: 100%;
+        -moz-font-feature-settings: "kern";
+        }
+        .gradient-1 {
+        background: linear-gradient(306deg, #E1FFFB -49.02%, #A0FBDF 8.19%, #309BB1 56.66%);
+        }
+
+        .gradient-2 {
+        background: linear-gradient(275deg, #08292E 45.91%, #5ED1AD 90.95%);
+        }
+
+        .gradient-3 {
+        background: linear-gradient(275deg, #0B1F22 45.91%, #99755A 81.18%, #F9F8E4 101.58%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-2 {
+        background: linear-gradient(276deg, #08292E 43.7%, #5ED1AD 71.09%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-3 {
+        background: linear-gradient(282deg, #99755A 18.85%, #0B1F22 64.36%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-4 {
+        background: linear-gradient(274deg, #0B1F22 50.11%, #99755A 88%, #F9F8E4 109.92%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-5 {
+        background: linear-gradient(274deg, #5ED1AD 7.05%, #08292E 61.74%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
+        
+        /* Website buttons css */
+        .mfz-cta svg {
+            position: relative;
+            transition: all 0.3s ease;
+            top: 1px;
+            left: -3px;
+        }
+        @media (max-width: 767px) {
+            .mfz-cta svg {
+                top: 0;
+            }
+        }
+        .mfz-cta svg path {
+            transition: all 0.3s ease;
+            stroke: #fff;
+        }
+        .mfz-cta:hover svg {
+            left: 0;
+        }
+        .mfz-cta:hover svg path {
+            stroke: #fff;
+        }
+
+        .mfz-cta.mfz-cta--outline svg path {
+            stroke: #0171E3;
+        }
+        .mfz-cta.mfz-cta--outline:hover svg path {
+            stroke: #fff;
+        }
+        .mfz-cta.mfz-cta--outlie-black svg path {
+        stroke: #000;
+        }
+        .mfz-cta.mfz-cta--outlie-black:hover svg path {
+        stroke: #fff;
+        }
+
+        .mfz-cta.mfz-cta--white svg path {
+            stroke: #000;
+        }
+        .mfz-cta.mfz-cta--white:hover svg path {
+            stroke: #000;
+        }
+
+        .mfz-cta.mfz-cta--outline-blue svg path,
+        .mfz-cta.mfz-cta--transparent svg path {
+            stroke: #0171E3;
+        }
+        .mfz-cta.mfz-cta--outline-blue:hover svg path,
+        .mfz-cta.mfz-cta--transparent:hover svg path {
+            stroke: #fff;
+        }
+
+        .mfz-cta.mfz-cta--transparent-white svg path {
+            stroke: #fff;
+        }
+        .mfz-cta.mfz-cta--transparent-white:hover svg path {
+            stroke: #000;
+        }
+
+        .mfz-cta.mfz-cta--blue svg path {
+            stroke: #fff;
+        }
+        .mfz-cta.mfz-cta--blue:hover svg path {
+            stroke: #fff;
+        }
+        .mfz-cta.mfz-cta--icon svg{
+        left: 0;
+        }
+
+
+        #wf-form-Channel-Partner-B2C-Form .mfz-form-submit-button,
+        #wf-form-Blogs-Form .mfz-form-submit-button,
+        #MFZ-NewCostCalForm #submitBtn.submit-button {
+            background-color: #0171E3;
+            border-color: #0171E3;
+            color: #fff;
+            padding: 10px 16px !important;
+            min-width: unset;
+            width: max-content;
+            line-height: 110%;
+            gap: 10px !important;
+            margin-left: 0;
+            margin-right: auto;
+        }
+        #wf-form-Channel-Partner-B2C-Form .mfz-form-submit-button svg path,
+        #wf-form-Blogs-Form .mfz-form-submit-button svg path,
+        #MFZ-NewCostCalForm #submitBtn.submit-button svg path {
+            stroke: #fff;
+        }
+        #wf-form-Channel-Partner-B2C-Form .mfz-form-submit-button:hover,
+        #wf-form-Blogs-Form .mfz-form-submit-button:hover,
+        #MFZ-NewCostCalForm #submitBtn.submit-button:hover {
+            background-color: #3498FF;
+            border-color: #3498FF;
+        }
+
+        @media (max-width: 768px) {
+        #wf-form-Channel-Partner-B2C-Form .mfz-form-submit-button,
+            #wf-form-Blogs-Form .mfz-form-submit-button,
+            #MFZ-NewCostCalForm #submitBtn.submit-button {
+                padding: 8px 14px !important;
+            }
+        }
+
+        .f-blog-card .mfz-article-readmore {
+            background-color: #fff;
+            color: #0171E3;
+            border: 1px solid #0171E3;
+        }
+        .f-blog-card .mfz-article-readmore svg {
+            transition: all 0.3s ease-in-out;
+        }
+        .f-blog-card .mfz-article-readmore svg path {
+            stroke: #0171E3;
+        }
+        .f-blog-card .mfz-article-readmore:hover {
+            background-color: #3498FF !important;
+            border-color: #3498FF;
+            color: #fff;
+        }
+        .f-blog-card .mfz-article-readmore:hover svg path {
+            stroke: #fff;
+        }
+        details.mfz-faq-item[open]:not(.closing) .mfz-faq-question {
+            color: #0171E3;
+        }
+
+
+        /* Main Article Content Links*/
+        .mfz-body .mfz-article-the-content {
+            table, p, ul, ol, blockquote {
+
+            & a {
+            color: inherit;
+            transition: all 0.5s ease-in-out;
+            text-decoration: underline;
+            sctrong, b {
+                color: inherit;
+                transition: all 0.5s ease-in-out;
+                text-decoration: underline;
+            } 
+            }
+
+            & a:hover {
+            color: #0171E3;
+            strong, b {
+                color: #0171E3;
+            }
+            }
+        }
+        
+        
+        
+        @media (max-width: 768px) {
+            .mplus-inner .mplus-hero-footer .mfz-cta.contact-modal {
+                background-color: #0171E3;
+                color: #fff;
+                border-color: #0171E3;
+            }
+            .mplus-inner .mplus-hero-footer .mfz-cta.contact-modal svg path {
+                stroke: #fff;
+            }
+            .mplus-inner .mplus-hero-footer .mfz-cta.contact-modal:hover {
+                background-color: #3498FF;
+                border-color: #3498FF;
+            }
+        }
+        
+        /* BG Blur */
+        .glass-blur-1 {
+        backdrop-filter: blur(5px) saturate(180%);
+        -webkit-backdrop-filter: blur(5px) saturate(180%);
+        border: 1px solid rgb(255 255 255 / 45%);
+        box-shadow: inset 3px 3px 10px #ccdbe870, inset -3px -3px 10px 1px rgb(255 255 255);
+        overflow: hidden;
+        isolation: isolate;
+        }
+
+        .glass-blur-2 {
+        backdrop-filter: blur(5px) saturate(180%);
+        -webkit-backdrop-filter: blur(5px) saturate(180%);
+        border: 1px solid rgb(255 255 255 / 5%);
+        box-shadow: inset 2px 1px 7px #ccdbe800, inset -1px -1px 7px 1px rgb(255 255 255 / 12%), 2px 2px 6px #0000000d;
+        overflow: hidden;
+        isolation: isolate;
+        }
+
+        .glass-blur-3 {
+        backdrop-filter: blur(5px) saturate(120%);
+        -webkit-backdrop-filter: blur(5px) saturate(120%);
+        border: 1px solid rgb(255 255 255 / 25%);
+        box-shadow: inset 2px 1px 7px #ccdbe800, inset -1px -1px 7px 1px rgb(255 255 255 / 12%), 2px 2px 6px #0000000d;
+        overflow: hidden;
+        isolation: isolate;
+        }
+
+        /* Mobile/Tablet: Lenis overrides */
+        @media (min-width: 991px) {
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        /* Scrollable sections */
+        [data-lenis-prevent],
+        .no-lenis {
+            overscroll-behavior: auto;
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
+        }
+        }
+        
+        
+        /* Blog CTA */
+        .mfz-article{
+            .cta-button{
+                color: #fff;
+                text-align: center;
+                text-transform: capitalize;
+                background-color: #0171E3;
+                border-radius: 50px;
+                width: auto;
+                max-width: none;
+                padding: 11px 16px;
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 110%;
+                transition: all .3s cubic-bezier(.455, .03, .515, .955);
+                display: inline-flex;
+                overflow: visible;
+            margin: 16px 0;
+                .w-embed{
+                    display: none !important;
+                }
+                &:hover{
+                    background: #3498ff !important;
+                }
+            }
+        }
+        @media (max-width: 991px){
+            .mfz-article{
+                .cta-button{
+                    font-size: 14px;
+                }
+            }
+        }
+        @media (max-width: 767px){
+            .mfz-article{
+                .cta-button{
+                    padding: 10px 14px;
+                }
+            }
+        }
+        @media (max-width: 479px){
+            .mfz-article{
+                .cta-button{
+                    font-size: 12px;
+                }
+            }
+        }
+        /* Blog crad cta css */
+        .f-blog-content{
+            .mfz-cms-readmore{
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                color: #0171E3;
+                transition: all 0.3s ease-in-out;
+                .cta-svg{
+                    max-width: 12px;
+                    svg{
+                        path{
+                            stroke: #0171E3;
+                            transition: all 0.3s ease-in-out;
+                        }
+                    }
+                }
+                &:hover{
+                    color: #0171E3;
+                    .cta-svg{
+                        svg{
+                            path{
+                                stroke: #0171E3;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /* For article mobile styel   */
+        @media screen and (max-width: 479px) {
+        .mfz-article-author-date > div .mfz-flex {
+            flex-flow: row;
+        }
+
+        .mfz-article-media .mfz-flex {
+            flex-flow: row wrap;
+        }
+        }
+        </style>
+
+        <script>
+        window.NREUM = window.NREUM || {};
+        NREUM.init = {
+            distributed_tracing: { enabled: true },
+            privacy: { cookies_enabled: true }
+        };
+
+        var loadNR = function() {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://meydanfz-public-assets.s3.us-east-1.amazonaws.com/Web/new-relic-mfz.js';
+            document.head.appendChild(s);
+        };
+
+        'requestIdleCallback' in window
+            ? requestIdleCallback(loadNR, { timeout: 5000 })
+            : window.addEventListener('load', function() { setTimeout(loadNR, 1000); });
+        </script>
+
+        <!-- Disable input focus zoom -->
+        <style>
+        /* Prevent iOS Safari auto-zoom on form focus (requires 16px+ on inputs) */
+        @media screen and (max-width: 767px) {
+            /* Main contact / popup / off-canvas forms */
+            .contactus-form input,
+            .contactus-form textarea,
+            .contactus-form select,
+            .contactus-form .form-group-input,
+            .contactus-form .w-input,
+            .contactus-form .w-select,
+
+            .contact-us-form input,
+            .contact-us-form textarea,
+            .contact-us-form select,
+            .contact-us-form .form-group-input,
+            .contact-us-form .w-input,
+            .contact-us-form .w-select,
+
+            .popup-form input,
+            .popup-form textarea,
+            .popup-form select,
+            .popup-form .form-group-input,
+            .popup-form .w-input,
+            .popup-form .w-select,
+
+            .off-canvas-form input,
+            .off-canvas-form textarea,
+            .off-canvas-form select,
+            .off-canvas-form .form-group-input,
+            .off-canvas-form .w-input,
+            .off-canvas-form .w-select,
+
+            .hc-form input,
+            .hc-form textarea,
+            .hc-form select,
+            .hc-form .form-group-input,
+            .hc-form .w-input,
+            .hc-form .w-select,
+
+            /* Phone field (intl-tel-input) */
+            .form-group--phone .form-group-input,
+            .form-group--phone .phone-input,
+            .form-group--phone .iti input,
+            .mfz-phone-container .form-group-input,
+            .mfz-phone-container .iti input,
+
+            /* Country / help dropdowns (Nice Select) */
+            .ms-input-wrap .nice-select,
+            .ms-input-wrap .nice-select .current,
+            .ms-input.nice-select,
+            .ms-input.nice-select .current {
+            font-size: 16px !important;
+            }
+        }
+
+
+
+        /* For Web accessiblity */
+        .mfz-skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        z-index: 10000;
+        }
+        .mfz-skip-link:focus {
+        left: 1rem;
+        top: 1rem;
+        padding: .75rem 1.25rem;
+        background: #fff;
+        color: #003a5d;
+        outline: 3px solid #003a5d;
+        }
+
+
+
+        /* For article mobile styel */
+        @media screen and (max-width: 479px) {
+        .mfz-article-author-date > div .mfz-flex {
+            flex-flow: row !important;
+        }
+        .mfz-article-author-date > div .mfz-flex .mfz-text-black {
+            font-weight: 500;
+            }
+
+        .mfz-article-media .mfz-flex {
+            flex-flow: row wrap !important;
+        }
+        }
+        </style>
+    </head>
+    <body>
+        <h1>MFZ Webflow Headcode Legacy</h1>
+    </body>
+</html>
