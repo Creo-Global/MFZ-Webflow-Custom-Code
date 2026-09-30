@@ -45,7 +45,7 @@ Benefits:
 | **First request** | One extra network request vs inline CSS. |
 | **Private repo** | jsDelivr cannot serve private GitHub repos — use inline CSS or another CDN you control. |
 
-### Inline (private repo or no CDN)
+### Inline (fallback)
 
 Paste into head custom code:
 
@@ -55,10 +55,6 @@ Paste into head custom code:
 </style>
 ```
 
-### Legacy reference
-
-`webflow-headcode-legacy.html` is a full historical head snapshot (meta, tags, scripts, inline styles). Use it as a paste reference only — do not paste the `<html>` wrapper into Webflow; copy the fragments you need.
-
 Keep `css/mfz-head.css` as the editable source in this repo and sync Webflow manually after each change.
 
 ## Deploy checklist
@@ -67,7 +63,7 @@ Keep `css/mfz-head.css` as the editable source in this repo and sync Webflow man
 2. Run `npm run build:css`.
 3. Commit `css/mfz-head.css` and `css/mfz-head.min.css`, push to `main`.
 4. Copy the new commit SHA from GitHub (if using jsDelivr).
-5. Update Webflow head (CDN link or inline `<style>` / legacy fragments).
+5. Update Webflow head (jsDelivr link or inline `<style>`).
 6. Publish the Webflow site.
 
 ## Roadmap
