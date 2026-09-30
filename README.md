@@ -18,52 +18,36 @@ npm install
 npm run build:css
 ```
 
-Regenerate `css/mfz-head.min.css` after every change to `css/mfz-head.css`. Commit **both** files, push to GitHub, then update the jsDelivr URL commit pin in Webflow (see below).
+Regenerate `css/mfz-head.min.css` after every change to `css/mfz-head.css`. Commit **both** files and push to GitHub.
 
-## Webflow head — recommended: jsDelivr (GitHub)
+## Webflow head
 
-Same pattern as MFZ phone validation:
+### jsDelivr (public GitHub only)
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Creo-Global/mfz-phone-validation@6006131/mfz-phone.min.css">
-```
-
-Use a **pinned commit** (not `@main`) so production does not change until you deliberately bump the hash:
+If the file is available on a **public** GitHub repo, load it with a **pinned commit** (not `@main`):
 
 ```html
 <!-- MFZ site head styles (gradients, CTAs, forms, blog, a11y) -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Creo-Global/MFZ-Webflow-Custom-Code@COMMIT_SHA/css/mfz-head.min.css">
 ```
 
-Replace `COMMIT_SHA` with the full or short git commit that contains the `css/mfz-head.min.css` you want live (copy from GitHub after push).
+Replace `COMMIT_SHA` with the git commit that contains the `css/mfz-head.min.css` you want live.
 
-Example after you publish a release commit:
+Benefits:
 
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Creo-Global/MFZ-Webflow-Custom-Code@e00bfbd/css/mfz-head.min.css">
-```
-
-### Is this fine?
-
-Yes, for MFZ this is a reasonable approach:
-
-- Keeps Webflow **head custom code** small (no huge inline `<style>` block).
-- Matches how you already ship `mfz-phone.min.css` from `Creo-Global` on jsDelivr.
-- **Pin the commit** so a random push does not alter the live site.
-
-Watch for:
+- Smaller Webflow head custom code (no large inline `<style>` block).
+- Production changes only when you bump the commit pin in Webflow.
 
 | Topic | Guidance |
 |--------|----------|
-| **Load order** | Put this link **after** Webflow’s own CSS if you rely on overrides; keep **phone/email** validation CSS where it already works (often after intl-tel-input). |
-| **Cache** | jsDelivr caches by URL; changing CSS requires a **new commit** and updating the `@COMMIT_SHA` in Webflow, then publish. |
-| **First request** | One extra network request vs inline CSS; usually acceptable. |
-| **Repo access** | jsDelivr serves **public** GitHub repos; private repos need another host or inline paste. |
-| **Availability** | Site styles depend on jsDelivr + GitHub; same tradeoff as your phone CSS link. |
+| **Load order** | Place **after** Webflow’s own CSS when you need overrides. |
+| **Cache** | jsDelivr caches by URL; ship CSS in a new commit and update `@COMMIT_SHA`, then publish Webflow. |
+| **First request** | One extra network request vs inline CSS. |
+| **Private repo** | jsDelivr cannot serve private GitHub repos — use inline CSS or another CDN you control. |
 
-### Alternative: inline in Webflow
+### Inline (private repo or no CDN)
 
-If you prefer zero external CSS dependency, paste into head custom code:
+Paste into head custom code:
 
 ```html
 <style>
@@ -71,29 +55,21 @@ If you prefer zero external CSS dependency, paste into head custom code:
 </style>
 ```
 
-Useful for debugging or if the repo is private.
+### Legacy reference
 
-### Private repo (this project)
+`webflow-headcode-legacy.html` is a full historical head snapshot (meta, tags, scripts, inline styles). Use it as a paste reference only — do not paste the `<html>` wrapper into Webflow; copy the fragments you need.
 
-This GitHub repo is **private**, so jsDelivr `gh/Creo-Global/MFZ-Webflow-Custom-Code/...` will **not** work for production.
-
-Options:
-
-1. **Inline CSS** — paste `css/mfz-head.min.css` inside `<style>` in Webflow head (smallest external dependency).
-2. **Public CSS mirror** — publish only `mfz-head.min.css` to a public repo or CDN you already use (same idea as `mfz-phone-validation` on jsDelivr).
-3. **Legacy reference** — `webflow-headcode-legacy.html` is the full historical head snapshot (meta, GTM, scripts, inline styles). Use it as a paste reference; **do not** treat the `<html>` wrapper as Webflow head code—copy only the fragments you need.
-
-Keep `css/mfz-head.css` as the editable source in this repo; sync Webflow manually after each change.
+Keep `css/mfz-head.css` as the editable source in this repo and sync Webflow manually after each change.
 
 ## Deploy checklist
 
 1. Edit `css/mfz-head.css`.
 2. Run `npm run build:css`.
 3. Commit `css/mfz-head.css` and `css/mfz-head.min.css`, push to `main`.
-4. Copy the new commit SHA from GitHub.
-5. Update Webflow head: jsDelivr link (public mirror) **or** inline `<style>` / legacy paste (private repo).
+4. Copy the new commit SHA from GitHub (if using jsDelivr).
+5. Update Webflow head (CDN link or inline `<style>` / legacy fragments).
 6. Publish the Webflow site.
 
 ## Roadmap
 
-Additional assets (full `header.html`, footer snippets) may live under `css/` and `snippets/` later.
+Additional assets (full head snippets, footer code) may live under `css/` and `snippets/` later.
